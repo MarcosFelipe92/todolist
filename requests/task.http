@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 # @name findById
-GET {{baseUrl}}/tasks/2
+GET {{baseUrl}}/tasks/1
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
@@ -30,31 +30,32 @@ Content-Type: application/json
 # @name create
 POST {{baseUrl}}/tasks
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
 
 {
   "title": "teste",
   "description": "teste@example.com",
-  "status": "123456",
-  "completedAt": "2025-04-01T18:00Z",
+  "status": "PENDING",
+  "completedAt": "2025-04-01T18:00:00Z"
 }
 
 ###
 
 # @name update
-PUT {{baseUrl}}/tasks/3
+PUT {{baseUrl}}/tasks/1
 Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 {
-  "title": "Marcos Felipe Amorim",
-  "description": "teste@example.com",
-  "status": "123456",
-  "completedAt": "2025-04-01T18:00Z"
+  "title": "Fazer o cadastro da api",
+  "description": "Pegar todas as informações e fazer cadastro da api.",
+  "status": "PENDING",
+  "completedAt": "2025-04-01T18:00:00Z"
 }
 
 ###
 
 # @name delete
-DELETE {{baseUrl}}/tasks/3
+DELETE {{baseUrl}}/tasks/2
 Authorization: Bearer {{authToken}}
 Content-Type: application/json

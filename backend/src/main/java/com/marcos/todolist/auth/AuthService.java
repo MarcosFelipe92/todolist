@@ -1,6 +1,7 @@
 package com.marcos.todolist.auth;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,9 +27,9 @@ public class AuthService {
     private final JwtEncoder jwtEncoder;
 
     public LoginResponseDTO login(LoginRequestDTO request) {
-        User user = userRepository.findByEmail(request.getEmail()).get();
+        Optional<User> user = userRepository.findByEmail(request.getEmail());
 
-        if (user == null || !user.isLoginCorrect(request, passwordEncoder)) {
+        if (!user.isPresent() || !user.get().isLoginCorrect(request, passwordEncoder)) {
             throw new BadCredentialsException("User or password is invalid");
         }
 
@@ -37,7 +38,7 @@ public class AuthService {
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("mybackend")
-                .subject(user.getId().toString())
+                .subject(user.get().getId().toString())
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiresIn))
                 .build();
