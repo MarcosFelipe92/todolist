@@ -116,6 +116,7 @@ public class UserServiceTest {
 
         @Test
         void shouldSaveUserWithEncodedPasswordAndReturnDto_whenCreatingWithValidDataAndUniqueEmail() {
+            // Arrange
             setupMockUser();
 
             when(userRepository.save(userArgumentCaptor.capture())).thenReturn(mockUser);
@@ -124,9 +125,11 @@ public class UserServiceTest {
 
             UserDto input = UserMapper.entityToDto(mockUser);
 
+            // Act
             UserDto output = userService.create(input);
             User userCaptured = userArgumentCaptor.getValue();
 
+            // Assert
             verify(userRepository, times(1)).save(userArgumentCaptor.capture());
             assertNotNull(output);
             assertEquals(ENCODED_PASSWORD, userCaptured.getPassword());
@@ -152,6 +155,7 @@ public class UserServiceTest {
 
         @Test
         void shouldUpdateUserWithEncodedPasswordAndReturnDto_whenUserExistsForGivenId() {
+            // Arrange
             User realUser = new User(ID, USERNAME, EMAIL, PASSWORD);
 
             when(userRepository.save(userArgumentCaptor.capture())).thenReturn(realUser);
@@ -160,9 +164,11 @@ public class UserServiceTest {
 
             UserDto input = UserMapper.entityToDto(realUser);
 
+            // Act
             UserDto output = userService.update(ID, input);
             User userCaptured = userArgumentCaptor.getValue();
 
+            // Assert
             verify(userRepository, times(1)).save(userArgumentCaptor.capture());
             assertNotNull(output);
             assertEquals(ENCODED_PASSWORD, userCaptured.getPassword());
