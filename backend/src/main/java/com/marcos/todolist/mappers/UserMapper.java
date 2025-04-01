@@ -4,7 +4,6 @@ import com.marcos.todolist.dtos.user.UserDto;
 import com.marcos.todolist.models.User;
 
 public class UserMapper {
-    
     public static User dtoToEntity(UserDto dto){
         Long id = dto.getId();
         String username = dto.getUsername();
