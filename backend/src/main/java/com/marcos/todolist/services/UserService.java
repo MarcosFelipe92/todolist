@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.marcos.todolist.dtos.user.UserDto;
-import com.marcos.todolist.exceptions.user.EmailAlreadyExists;
-import com.marcos.todolist.exceptions.user.UserNotFound;
+import com.marcos.todolist.exceptions.user.EmailAlreadyExistsException;
+import com.marcos.todolist.exceptions.user.UserNotFoundException;
 import com.marcos.todolist.mappers.UserMapper;
 import com.marcos.todolist.models.User;
 import com.marcos.todolist.repositories.UserRepository;
@@ -27,14 +27,14 @@ public class UserService {
     }
 
     public UserDto findById(Long id) {
-        User entity = repository.findById(id).orElseThrow(()-> new UserNotFound("Usuário não encontrado"));
+        User entity = repository.findById(id).orElseThrow(()-> new UserNotFoundException("Usuário não encontrado."));
         return UserMapper.entityToDto(entity);
     }
 
     @Transactional
     public UserDto create(UserDto input) {
         repository.findByEmail(input.getEmail()).ifPresent(user-> {
-            throw new EmailAlreadyExists("Já existe um Usuário com esse E-mail.");
+            throw new EmailAlreadyExistsException("Já existe um Usuário com esse E-mail.");
         });
 
         User entity = UserMapper.dtoToEntity(input);
@@ -48,11 +48,11 @@ public class UserService {
 
     @Transactional
     public UserDto update(Long id, UserDto input) {
-        User entity = repository.findById(id).orElseThrow(()-> new UserNotFound("Usuário não encontrado"));
+        User entity = repository.findById(id).orElseThrow(()-> new UserNotFoundException("Usuário não encontrado."));
         String email = entity.getEmail();
         repository.findByEmail(email).ifPresent(user -> {
             if (!input.getEmail().equals(email)) {
-                throw new EmailAlreadyExists("Email Já existe.");
+                throw new EmailAlreadyExistsException("Email Já existe.");
             }
         });
         String encryptPassword = passwordEncoder.encode(input.getPassword());
@@ -65,7 +65,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        repository.findById(id).orElseThrow(()-> new UserNotFound("Usuário não encontrado"));
+        repository.findById(id).orElseThrow(()-> new UserNotFoundException("Usuário não encontrado."));
         repository.deleteById(id);
     }
 }
