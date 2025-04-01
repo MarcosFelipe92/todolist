@@ -3,6 +3,8 @@ package com.marcos.todolist.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import com.marcos.todolist.dtos.task.TaskDto;
 import com.marcos.todolist.exceptions.task.TaskNotFoundException;
 import com.marcos.todolist.mappers.TaskMapper;
@@ -13,6 +15,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class TaskService {
     
     private final TaskRepository repository;

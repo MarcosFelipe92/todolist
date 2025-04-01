@@ -31,8 +31,8 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskDto> findById(@PathVariable Long input) {
-        TaskDto output = service.findById(input);
+    public ResponseEntity<TaskDto> findById(@PathVariable Long id) {
+        TaskDto output = service.findById(id);
         return ResponseEntity.ok().body(output);
     }
 

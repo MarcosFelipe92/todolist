@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "123456"
+}
+
+@authToken = {{login.response.body.token}}
+
+###
+
+# @name findAll
+GET {{baseUrl}}/tasks
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name findById
+GET {{baseUrl}}/tasks/2
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name create
+POST {{baseUrl}}/tasks
+Content-Type: application/json
+
+{
+  "title": "teste",
+  "description": "teste@example.com",
+  "status": "123456",
+  "completedAt": "2025-04-01T18:00Z",
+}
+
+###
+
+# @name update
+PUT {{baseUrl}}/tasks/3
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "title": "Marcos Felipe Amorim",
+  "description": "teste@example.com",
+  "status": "123456",
+  "completedAt": "2025-04-01T18:00Z"
+}
+
+###
+
+# @name delete
+DELETE {{baseUrl}}/tasks/3
+Authorization: Bearer {{authToken}}
+Content-Type: application/json

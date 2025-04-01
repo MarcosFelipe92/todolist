@@ -31,13 +31,13 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> findById(@PathVariable Long input) {
-        UserDto output = service.findById(input);
+    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
+        UserDto output = service.findById(id);
         return ResponseEntity.ok().body(output);
     }
 
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UserDto> create(@Valid @RequestBody UserDto input) {
         UserDto output = service.create(input);
         return ResponseEntity.ok().body(output);

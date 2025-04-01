@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.marcos.todolist.dtos.user.UserDto;
 import com.marcos.todolist.exceptions.user.EmailAlreadyExistsException;
@@ -16,6 +17,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class UserService {
     
     private final UserRepository repository;
@@ -50,7 +52,7 @@ public class UserService {
     public UserDto update(Long id, UserDto input) {
         User entity = repository.findById(id).orElseThrow(()-> new UserNotFoundException("Usuário não encontrado."));
         String email = entity.getEmail();
-        repository.findByEmail(email).ifPresent(user -> {
+        repository.findByEmail(input.getEmail()).ifPresent(user -> {
             if (!input.getEmail().equals(email)) {
                 throw new EmailAlreadyExistsException("Email Já existe.");
             }

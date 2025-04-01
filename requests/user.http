@@ -1,0 +1,58 @@
+@baseUrl = http://localhost:8080
+
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@gmail.com",
+  "password": "123456"
+}
+
+@authToken = {{login.response.body.token}}
+
+###
+
+# @name findAll
+GET {{baseUrl}}/users
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name findById
+GET {{baseUrl}}/users/1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+###
+
+# @name create
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username": "Admin",
+  "email": "admin@gmail.com",
+  "password": "123456"
+}
+
+###
+
+# @name update
+PUT {{baseUrl}}/users/1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "username": "Teste",
+  "email": "teste@gmail.com",
+  "password": "123456"
+}
+
+###
+
+# @name delete
+DELETE {{baseUrl}}/users/2
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
