@@ -12,7 +12,7 @@ import com.marcos.todolist.dtos.login.LoginResponseDTO;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
