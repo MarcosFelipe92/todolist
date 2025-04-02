@@ -20,7 +20,7 @@ export const authService = {
         let errorMessage = "Erro na autenticação.";
         try {
           const errorData = await response.json();
-          errorMessage = errorData?.message || errorMessage;
+          errorMessage = errorData?.error || errorMessage;
         } catch (jsonError) {
           errorMessage = `Erro ${response.status}: ${response.statusText}`;
         }

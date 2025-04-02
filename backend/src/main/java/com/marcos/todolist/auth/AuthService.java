@@ -30,7 +30,7 @@ public class AuthService {
         Optional<User> user = userRepository.findByEmail(request.getEmail());
 
         if (!user.isPresent() || !user.get().isLoginCorrect(request, passwordEncoder)) {
-            throw new BadCredentialsException("User or password is invalid");
+            throw new BadCredentialsException("Email ou senha inválidos.");
         }
 
         Instant now = Instant.now();
