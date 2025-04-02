@@ -6,8 +6,6 @@ export const lightTheme = {
   successDark: "#218838",
   warning: "#ffc107",
   danger: "#dc3545",
-  cardBg: "#ffffff",
-  cardFooterBg: "#f8f9fa",
   tableHeaderBg: "#f8f9fa",
   tableRowEvenBg: "#f8f9fa",
   tableRowHoverBg: "#e9ecef",
@@ -15,6 +13,11 @@ export const lightTheme = {
   textSecondary: "#6c757d",
   border: "#dee2e6",
   buttonHoverBg: "#f1f3f5",
+  cardBg: "#ffffff",
+  cardBorder: "#e0e0e0",
+  cardShadow: "0 2px 10px rgba(0, 0, 0, 0.08)",
+  cardHoverShadow: "0 4px 12px rgba(0, 0, 0, 0.12)",
+  cardFooterBg: "#f8f9fa",
 };
 
 export const darkTheme = {
@@ -25,8 +28,6 @@ export const darkTheme = {
   successDark: "#28a745",
   warning: "#ffd351",
   danger: "#ff6b6b",
-  cardBg: "#2d3748",
-  cardFooterBg: "#1a202c",
   tableHeaderBg: "#1a202c",
   tableRowEvenBg: "#2d3748",
   tableRowHoverBg: "#4a5568",
@@ -34,4 +35,10 @@ export const darkTheme = {
   textSecondary: "#a0aec0",
   border: "#4a5568",
   buttonHoverBg: "#4a5568",
+  cardBg: "#1e1e1e",
+  cardBodyBg: "#252525",
+  cardBorder: "#333333",
+  cardShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+  cardHoverShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+  cardFooterBg: "#252525",
 };

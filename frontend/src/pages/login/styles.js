@@ -8,10 +8,12 @@ export const LinkWrapper = styled.div`
 `;
 
 export const StyledLink = styled(RouterLink)`
-  color: black;
+  color: ${({ theme }) => theme.textSecondary};
   text-decoration: none;
+  transition: color 0.2s;
 
   &:hover {
+    color: ${({ theme }) => theme.primary};
     text-decoration: underline;
   }
 `;

@@ -9,18 +9,26 @@ export const PageContainer = styled.div`
 export const Card = styled.div`
   background: ${({ theme }) => theme.cardBg};
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.cardBorder};
+  box-shadow: ${({ theme }) => theme.cardShadow};
   overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: ${({ theme }) => theme.cardHoverShadow};
+  }
 `;
 
 export const CardHeader = styled.div`
   background: ${({ theme }) => theme.primary};
   color: white;
   padding: 1rem 1.5rem;
+  border-bottom: 1px solid ${({ theme }) => theme.cardBorder};
 `;
 
 export const CardBody = styled.div`
   padding: 1.5rem;
+  background: ${({ theme }) => theme.cardBodyBg || theme.cardBg};
 `;
 
 export const CardFooter = styled.div`
@@ -28,6 +36,7 @@ export const CardFooter = styled.div`
   color: ${({ theme }) => theme.textSecondary};
   padding: 0.75rem 1.5rem;
   font-size: 0.9rem;
+  border-top: 1px solid ${({ theme }) => theme.cardBorder};
 `;
 
 export const SearchContainer = styled.div`
