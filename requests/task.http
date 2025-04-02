@@ -33,9 +33,9 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "title": "teste",
-  "description": "teste@example.com",
-  "status": "PENDING",
+  "title": "Tarefa 3",
+  "description": "Nova Tarefa",
+  "status": "COMPLETED",
   "completedAt": "2025-04-01T18:00:00Z"
 }
 
