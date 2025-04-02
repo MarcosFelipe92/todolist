@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TaskList } from "../components/task-list";
+import { TaskList } from "../../components/task-list";
 
 export function Home() {
   const [tasks, setTasks] = useState([

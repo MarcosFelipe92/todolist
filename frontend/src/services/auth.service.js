@@ -52,4 +52,40 @@ export const authService = {
   getToken: () => {
     return Cookies.get("authToken");
   },
+
+  register: async (username, email, password) => {
+    try {
+      const response = await fetch(`${API_URL}/users/register`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        let errorMessage = "Erro ao cadastrar Usuário.";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData?.message || errorMessage;
+        } catch (jsonError) {
+          errorMessage = `Erro ${response.status}: ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || "Erro ao conectar com o servidor.",
+      };
+    }
+  },
 };
