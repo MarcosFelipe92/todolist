@@ -10,8 +10,9 @@ import { Input } from "../input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "./schema";
+import { DateInput } from "../date-input";
 
-export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
+export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
   const {
     register,
     handleSubmit,
@@ -83,11 +84,9 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
           </div>
 
           <div style={{ marginBottom: "1.5rem" }}>
-            <Input
-              {...register("completedAt")}
-              type="date"
-              placeholder="Data de Conclusão"
-              label="Concluído em"
+            <DateInput
+              onChange={(date) => setValue("completedAt", date)}
+              label={"Data de conclusão"}
             />
             {errors.completedAt && (
               <p style={{ color: "red" }}>{errors.completedAt.message}</p>
@@ -98,7 +97,7 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
             <ModalCancelButton type="button" onClick={onRequestClose}>
               Cancelar
             </ModalCancelButton>
-            <ModalSaveButton type="submit">Salvar Alterações</ModalSaveButton>
+            <ModalSaveButton type="submit">Salvar Tarefa</ModalSaveButton>
           </ModalActions>
         </form>
       </ModalDialog>

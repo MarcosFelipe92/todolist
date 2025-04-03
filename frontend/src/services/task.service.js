@@ -16,24 +16,20 @@ export const taskService = {
       });
 
       if (!response.ok) {
-        let errorMessage = "Erro ao buscar Tarefas.";
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData?.message || errorMessage;
-        } catch (jsonError) {
-          errorMessage = `Erro ${response.status}: ${response.statusText}`;
+        let errorMessage = "Erro ao buscar tarefas.";
+        if (response.status == 401) {
+          errorMessage = "Token Invalido.";
+          return { success: false, message: errorMessage };
         }
-        throw new Error(errorMessage);
       }
 
       const data = await response.json();
-
-      return { success: true, data: data };
+      return { success: true, data };
     } catch (error) {
-      console.error("Erro no login:", error);
+      console.error("Erro ao buscar tarefas:", error);
       return {
         success: false,
-        message: error.message || "Erro ao conectar com o servidor.",
+        message: "Erro ao conectar com o servidor.",
       };
     }
   },
@@ -72,7 +68,8 @@ export const taskService = {
     }
   },
 
-  create: async (title, description, status, completedAt) => {
+  create: async (task) => {
+    const token = authService.getToken();
     try {
       const response = await fetch(`${API_URL}/tasks`, {
         method: "POST",
@@ -80,12 +77,7 @@ export const taskService = {
           "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          title,
-          description,
-          status,
-          completedAt,
-        }),
+        body: JSON.stringify(task),
       });
 
       if (!response.ok) {

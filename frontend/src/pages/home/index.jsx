@@ -1,3 +1,4 @@
+import { CreateModal } from "../../components/create-modal";
 import { DeleteModal } from "../../components/delete-modal";
 import { EditModal } from "../../components/edit-modal";
 import { TaskList } from "../../components/task-list";
@@ -32,11 +33,14 @@ export function Home() {
   const {
     isEditModalOpen,
     isDeleteModalOpen,
+    isCreateModalOpen,
     currentTask,
     openEditModal,
-    closeEditModal,
     openDeleteModal,
+    openCreateModal,
+    closeEditModal,
     closeDeleteModal,
+    closeCreateModal,
   } = useModal();
 
   const handleEditSubmit = async (data) => {
@@ -66,6 +70,33 @@ export function Home() {
     } catch (error) {
       console.error("Erro ao atualizar tarefa:", error);
       alert("Não foi possível atualizar a tarefa.");
+    }
+  };
+
+  const handleCreateSubmit = async (data) => {
+    const createTask = {
+      ...data,
+      completedAt: data.completedAt
+        ? new Date(data.completedAt).toISOString()
+        : null,
+    };
+
+    try {
+      const result = await taskService.create(createTask);
+      if (result.success) {
+        setTasks(
+          tasks.map((task) => (task.id === currentTask.id ? updatedTask : task))
+        );
+        setFilteredTasks(
+          filteredTasks.map((task) =>
+            task.id === currentTask.id ? updatedTask : task
+          )
+        );
+        closeCreateModal();
+      }
+    } catch (error) {
+      console.error("Erro ao criar tarefa:", error);
+      alert("Não foi possível criar a tarefa.");
     }
   };
 
@@ -102,7 +133,7 @@ export function Home() {
               onChange={(e) => handleSearch(e.target.value)}
             />
             <SearchButton>Buscar</SearchButton>
-            <AddButton>Nova Tarefa</AddButton>
+            <AddButton onClick={openCreateModal}>Nova Tarefa</AddButton>
           </SearchContainer>
 
           {isLoading ? (
@@ -127,7 +158,6 @@ export function Home() {
         onRequestClose={closeEditModal}
         task={currentTask}
         onSubmit={handleEditSubmit}
-        handleSubmit={handleEditSubmit}
       />
 
       <DeleteModal
@@ -136,6 +166,12 @@ export function Home() {
         onCancel={closeDeleteModal}
         onConfirm={confirmDelete}
         title={currentTask?.title}
+      />
+
+      <CreateModal
+        isOpen={isCreateModalOpen}
+        onRequestClose={closeCreateModal}
+        onSubmit={handleCreateSubmit}
       />
     </PageContainer>
   );

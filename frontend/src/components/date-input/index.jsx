@@ -1,14 +1,10 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { DatePickerWrapper } from "./styles";
 import { CustomDateInput } from "../custom-date-input";
+import { DatePickerWrapper } from "./styles";
 
 export function DateInput({ value, onChange, label }) {
-  const [selectedDate, setSelectedDate] = useState(
-    value ? new Date(value) : null
-  );
-
   return (
     <DatePickerWrapper>
       <DatePicker
@@ -18,7 +14,7 @@ export function DateInput({ value, onChange, label }) {
         }
         dateFormat="dd/MM/yyyy"
         placeholderText="DD/MM/AAAA"
-        customInput={<CustomDateInput />}
+        customInput={<CustomDateInput label={label} />}
       />
     </DatePickerWrapper>
   );

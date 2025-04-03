@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { taskService } from "../services/task.service";
+import { authService } from "../services/auth.service";
 
 export function useTasks() {
   const [tasks, setTasks] = useState([]);
@@ -11,6 +12,12 @@ export function useTasks() {
     const fetchTasks = async () => {
       try {
         const response = await taskService.findAll();
+        if (!response.success) {
+          if (response.message == "Token Invalido.") {
+            authService.logout();
+            window.location.replace("/");
+          }
+        }
         setTasks(response.data);
         setFilteredTasks(response.data);
       } catch (error) {
