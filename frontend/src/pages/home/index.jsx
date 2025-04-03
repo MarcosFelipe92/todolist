@@ -84,14 +84,8 @@ export function Home() {
     try {
       const result = await taskService.create(createTask);
       if (result.success) {
-        setTasks(
-          tasks.map((task) => (task.id === currentTask.id ? updatedTask : task))
-        );
-        setFilteredTasks(
-          filteredTasks.map((task) =>
-            task.id === currentTask.id ? updatedTask : task
-          )
-        );
+        setTasks((prevTasks) => [...prevTasks, result.data]);
+        setFilteredTasks((prevTasks) => [...prevTasks, result.data]);
         closeCreateModal();
       }
     } catch (error) {

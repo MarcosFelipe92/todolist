@@ -11,16 +11,30 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "./schema";
 import { DateInput } from "../date-input";
+import { useEffect } from "react";
 
 export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
   const {
     register,
     handleSubmit,
+    setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(taskSchema),
     mode: "onChange",
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      reset({
+        title: "",
+        description: "",
+        status: "",
+        completedAt: null,
+      });
+    }
+  }, [isOpen, reset]);
 
   return (
     <Modal

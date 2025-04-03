@@ -93,7 +93,7 @@ export const taskService = {
 
       const data = await response.json();
 
-      return { success: true };
+      return { success: true, data };
     } catch (error) {
       return {
         success: false,
