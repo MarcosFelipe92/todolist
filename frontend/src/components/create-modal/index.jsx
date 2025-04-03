@@ -91,8 +91,8 @@ export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
             <Select
               label="Status"
               options={[
-                { value: "PENDING", label: "PENDENTE" },
-                { value: "COMPLETED", label: "CONCLUÍDO" },
+                { value: "PENDENTE", label: "PENDENTE" },
+                { value: "CONCLUIDO", label: "CONCLUÍDO" },
               ]}
               value={watch("status")}
               onChange={(val) => setValue("status", val)}
