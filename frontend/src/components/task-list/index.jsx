@@ -58,7 +58,9 @@ export function TaskList({ tasks, onDelete, onEdit }) {
                 {task.description}
               </DescriptionCell>
               <TableCell>
-                <Badge status={task.status}>{task.status}</Badge>
+                <Badge status={task.status}>
+                  {task.status == "COMPLETED" ? "CONCLUÍDO" : "PENDENTE"}
+                </Badge>
               </TableCell>
               <TableCell>{formatDate(task.completedAt)}</TableCell>
               <TableCell>

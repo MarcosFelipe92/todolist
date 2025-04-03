@@ -11,12 +11,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "./schema";
 import { DateInput } from "../date-input";
+import { Select } from "../select";
 
 export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
   const {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(taskSchema),
@@ -75,12 +77,14 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
           </div>
 
           <div style={{ marginBottom: "1.5rem" }}>
-            <Input
-              {...register("status")}
-              type="text"
-              placeholder="Status"
+            <Select
               label="Status"
-              defaultValue={task?.status}
+              options={[
+                { value: "PENDING", label: "PENDENTE" },
+                { value: "COMPLETED", label: "CONCLUÍDO" },
+              ]}
+              value={watch("status")}
+              onChange={(val) => setValue("status", val)}
             />
             {errors.status && (
               <p style={{ color: "red" }}>{errors.status.message}</p>
