@@ -18,7 +18,7 @@ public class TaskMapperTest {
     private static final Long ID = 1L;
     private static final String TITLE = "Read book";
     private static final String DESCRIPTION = "Read the book: Clean Code";
-    private static final TaskStatus STATUS = TaskStatus.PENDING;
+    private static final TaskStatus STATUS = TaskStatus.PENDENTE;
     private static final Instant COMPETED_AT = Instant.now();
 
 

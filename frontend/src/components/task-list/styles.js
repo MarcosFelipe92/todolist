@@ -55,9 +55,9 @@ export const Badge = styled.span`
 
   ${({ status }) => {
     switch (status.toLowerCase()) {
-      case "pending":
+      case "pendente":
         return "background: #fff3cd; color: #856404;";
-      case "completed":
+      case "concluido":
         return "background: #d4edda; color: #155724;";
     }
   }}

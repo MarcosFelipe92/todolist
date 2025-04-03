@@ -15,7 +15,7 @@ Content-Type: application/json
 
 # @name findAll
 GET {{baseUrl}}/tasks
-Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJteWJhY2tlbmQiLCJzdWIiOiIxIiwiZXhwIjoxNzQzNjkyOTQyLCJpYXQiOjE3NDM2ODIxNDJ9.BhuShM9gRgecIyK5SnxUsPtCS30fJCzUJeATEvro9TeEYp7eljhJrDjpUpnHsStdKWLSyx0pd-0QgI48A7qLgvGRUg9kSDJYoSUYeEZgEc5-v1-5KQW_3CNSJhTxWs_1nVeiqCveXc8CE-7ftk9XJrj7wpp6EWL6VJqhSx9WZZQD6kHdvoN4-mRKp0NPIAd2X24aN93DPwhj2KRM3Kv63V8RsZ-2JiQ0lTH6jOaMAAeBY3UoySb5IiB5jey6tiwJ5EOkb928OvBuslEAQijCw64H0OozyDED8Y_GU4J6s7O4lx87EHUv0ixKlZOeJDir9o2O4G42p-rYwSfIxrIpYQ
+Authorization: Bearer {{authToken}}
 Content-Type: application/json
 
 ###
