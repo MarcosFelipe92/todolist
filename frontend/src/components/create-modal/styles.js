@@ -68,6 +68,32 @@ export const ModalConfirmButton = styled(ModalCancelButton)`
   }
 `;
 
+export const ModalSaveButton = styled(ModalConfirmButton)`
+  background: ${({ theme }) => theme.primary};
+
+  &:hover {
+    background: ${({ theme }) => theme.primaryDark};
+  }
+`;
+
+export const EditButton = styled.button`
+  background: ${({ theme }) => theme.warning};
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+
+  &:hover {
+    background: ${({ theme }) => theme.warningDark};
+  }
+`;
+
 export const ModalBackdrop = styled.div`
   position: fixed;
   top: 0;

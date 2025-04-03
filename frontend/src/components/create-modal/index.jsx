@@ -3,20 +3,18 @@ import {
   ModalActions,
   ModalCancelButton,
   ModalDialog,
-  ModalEditButton,
+  ModalSaveButton,
   ModalHeader,
 } from "./styles";
 import { Input } from "../input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "./schema";
-import { DateInput } from "../date-input";
 
 export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(taskSchema),
@@ -46,7 +44,7 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
       }}
     >
       <ModalDialog>
-        <ModalHeader>Editar Tarefa</ModalHeader>
+        <ModalHeader>Criar Tarefa</ModalHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div style={{ marginBottom: "1rem" }}>
             <Input
@@ -54,7 +52,6 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
               type="text"
               placeholder="Titulo"
               label="Titulo"
-              defaultValue={task?.title}
             />
             {errors.title && (
               <p style={{ color: "red" }}>{errors.title.message}</p>
@@ -67,7 +64,6 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
               type="text"
               placeholder="Descrição"
               label="Descrição"
-              defaultValue={task?.description}
             />
             {errors.description && (
               <p style={{ color: "red" }}>{errors.description.message}</p>
@@ -80,7 +76,6 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
               type="text"
               placeholder="Status"
               label="Status"
-              defaultValue={task?.status}
             />
             {errors.status && (
               <p style={{ color: "red" }}>{errors.status.message}</p>
@@ -88,10 +83,11 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
           </div>
 
           <div style={{ marginBottom: "1.5rem" }}>
-            <DateInput
-              value={task?.completedAt}
-              onChange={(date) => setValue("completedAt", date)}
-              label={"Data de conclusão"}
+            <Input
+              {...register("completedAt")}
+              type="date"
+              placeholder="Data de Conclusão"
+              label="Concluído em"
             />
             {errors.completedAt && (
               <p style={{ color: "red" }}>{errors.completedAt.message}</p>
@@ -102,7 +98,7 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
             <ModalCancelButton type="button" onClick={onRequestClose}>
               Cancelar
             </ModalCancelButton>
-            <ModalEditButton type="submit">Salvar Alterações</ModalEditButton>
+            <ModalSaveButton type="submit">Salvar Alterações</ModalSaveButton>
           </ModalActions>
         </form>
       </ModalDialog>
