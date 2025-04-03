@@ -16,8 +16,6 @@ import { PencilSimple, Trash } from "phosphor-react";
 
 export function TaskList({ tasks, onDelete, onEdit }) {
   const formatDate = (dateString) => {
-    console.log(dateString);
-
     if (!dateString) return "-";
     try {
       return new Date(dateString).toLocaleDateString("pt-BR", {
@@ -65,13 +63,10 @@ export function TaskList({ tasks, onDelete, onEdit }) {
               <TableCell>{formatDate(task.completedAt)}</TableCell>
               <TableCell>
                 <div style={{ display: "flex" }}>
-                  <EditButton onClick={() => onEdit(task.id)} title="Editar">
+                  <EditButton onClick={() => onEdit(task)} title="Editar">
                     <PencilSimple size={16} />
                   </EditButton>
-                  <DeleteButton
-                    onClick={() => onDelete(task.id)}
-                    title="Excluir"
-                  >
+                  <DeleteButton onClick={() => onDelete(task)} title="Excluir">
                     <Trash size={16} />
                   </DeleteButton>
                 </div>

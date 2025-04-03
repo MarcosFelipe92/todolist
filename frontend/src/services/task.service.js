@@ -110,20 +110,16 @@ export const taskService = {
     }
   },
 
-  update: async (id, title, description, status, completedAt) => {
+  update: async (task) => {
     try {
-      const response = await fetch(`${API_URL}/tasks/${id}`, {
+      const token = authService.getToken();
+      const response = await fetch(`${API_URL}/tasks/${task.id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          title,
-          description,
-          status,
-          completedAt,
-        }),
+        body: JSON.stringify(task),
       });
 
       if (!response.ok) {
@@ -131,13 +127,11 @@ export const taskService = {
         try {
           const errorData = await response.json();
           errorMessage = errorData?.message || errorMessage;
-        } catch (jsonError) {
+        } catch {
           errorMessage = `Erro ${response.status}: ${response.statusText}`;
         }
         throw new Error(errorMessage);
       }
-
-      const data = await response.json();
 
       return { success: true };
     } catch (error) {
@@ -150,6 +144,7 @@ export const taskService = {
 
   delete: async (id) => {
     try {
+      const token = authService.getToken();
       const response = await fetch(`${API_URL}/tasks/${id}`, {
         method: "DELETE",
         headers: {
@@ -168,8 +163,6 @@ export const taskService = {
         }
         throw new Error(errorMessage);
       }
-
-      const data = await response.json();
 
       return { success: true };
     } catch (error) {

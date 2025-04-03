@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/auth.provider";
 import { Input } from "../input";
-import { Button, Container, ErrorMessage, Form } from "./styles";
 import { schemaRegister } from "./schema";
+import { Button, Container, ErrorMessage, Form } from "./styles";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -19,7 +19,6 @@ export default function FormRegister() {
     mode: "onChange",
   });
 
-  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errorForm, setErrorForm] = useState("");
