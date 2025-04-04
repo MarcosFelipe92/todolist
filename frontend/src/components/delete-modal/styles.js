@@ -43,22 +43,27 @@ export const ModalActions = styled.div`
   margin-top: 2rem;
 `;
 
-export const ModalCancelButton = styled.button`
+export const ModalButton = styled.button`
   padding: 0.75rem 1.5rem;
-  background: ${({ theme }) => theme.buttonSecondaryBg};
-  color: ${({ theme }) => theme.buttonSecondaryText};
-  border: 1px solid ${({ theme }) => theme.border};
   border-radius: 6px;
+  color: white;
+  border: none;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s;
+`;
+
+export const ModalCancelButton = styled(ModalButton)`
+  background: ${({ theme }) => theme.buttonSecondaryBg};
+  color: ${({ theme }) => theme.buttonSecondaryText};
+  border: 1px solid ${({ theme }) => theme.border};
 
   &:hover {
     background: ${({ theme }) => theme.buttonSecondaryHover};
   }
 `;
 
-export const ModalConfirmButton = styled(ModalCancelButton)`
+export const ModalConfirmButton = styled(ModalButton)`
   background: ${({ theme }) => theme.danger};
   color: white;
   border: none;
