@@ -104,3 +104,9 @@ export const ModalDialog = styled.div`
   box-shadow: 0 4px 20px ${({ theme }) => theme.shadow};
   border: 1px solid ${({ theme }) => theme.cardBorder};
 `;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+`;

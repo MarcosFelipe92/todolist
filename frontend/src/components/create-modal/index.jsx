@@ -6,6 +6,7 @@ import {
   ModalSaveButton,
   ModalHeader,
   StyledModal,
+  Form,
 } from "./styles";
 import { Input } from "../input";
 import { Select } from "../select";
@@ -68,55 +69,47 @@ export function CreateModal({ isOpen, onRequestClose, onCreateSuccess }) {
     >
       <ModalDialog>
         <ModalHeader>Criar Tarefa</ModalHeader>
-        <form onSubmit={handleSubmit(handleCreateSubmit)}>
-          <div style={{ marginBottom: "1rem" }}>
-            <Input
-              {...register("title")}
-              type="text"
-              placeholder="Titulo"
-              label="Titulo"
-            />
-            {errors.title && (
-              <p style={{ color: "red" }}>{errors.title.message}</p>
-            )}
-          </div>
+        <Form onSubmit={handleSubmit(handleCreateSubmit)}>
+          <Input
+            {...register("title")}
+            type="text"
+            placeholder="Titulo"
+            label="Titulo"
+          />
+          {errors.title && (
+            <p style={{ color: "red" }}>{errors.title.message}</p>
+          )}
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <Input
-              {...register("description")}
-              type="text"
-              placeholder="Descrição"
-              label="Descrição"
-            />
-            {errors.description && (
-              <p style={{ color: "red" }}>{errors.description.message}</p>
-            )}
-          </div>
+          <Input
+            {...register("description")}
+            type="text"
+            placeholder="Descrição"
+            label="Descrição"
+          />
+          {errors.description && (
+            <p style={{ color: "red" }}>{errors.description.message}</p>
+          )}
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <Select
-              label="Status"
-              options={[
-                { value: "PENDENTE", label: "PENDENTE" },
-                { value: "CONCLUIDO", label: "CONCLUÍDO" },
-              ]}
-              value={watch("status")}
-              onChange={(val) => setValue("status", val)}
-            />
-            {errors.status && (
-              <p style={{ color: "red" }}>{errors.status.message}</p>
-            )}
-          </div>
+          <Select
+            label="Status"
+            options={[
+              { value: "PENDENTE", label: "PENDENTE" },
+              { value: "CONCLUIDO", label: "CONCLUÍDO" },
+            ]}
+            value={watch("status")}
+            onChange={(val) => setValue("status", val)}
+          />
+          {errors.status && (
+            <p style={{ color: "red" }}>{errors.status.message}</p>
+          )}
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <DateInput
-              onChange={(date) => setValue("completedAt", date)}
-              label={"Data de conclusão"}
-            />
-            {errors.completedAt && (
-              <p style={{ color: "red" }}>{errors.completedAt.message}</p>
-            )}
-          </div>
+          <DateInput
+            onChange={(date) => setValue("completedAt", date)}
+            label={"Data de conclusão"}
+          />
+          {errors.completedAt && (
+            <p style={{ color: "red" }}>{errors.completedAt.message}</p>
+          )}
 
           <ModalActions>
             <ModalCancelButton type="button" onClick={onRequestClose}>
@@ -124,7 +117,7 @@ export function CreateModal({ isOpen, onRequestClose, onCreateSuccess }) {
             </ModalCancelButton>
             <ModalSaveButton type="submit">Salvar Tarefa</ModalSaveButton>
           </ModalActions>
-        </form>
+        </Form>
       </ModalDialog>
     </StyledModal>
   );
