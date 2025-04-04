@@ -27,6 +27,8 @@ export const lightTheme = {
   inputBg: "#ffffff",
   inputBorder: "#e0e0e0",
   modalBackdrop: "rgba(255, 255, 255, 0.7)",
+  themeToggleBg: "#f0f0f0",
+  themeToggleColor: "#333",
 };
 
 export const darkTheme = {
@@ -59,4 +61,6 @@ export const darkTheme = {
   inputBg: "#2d3748",
   inputBorder: "#4a5568",
   modalBackdrop: "rgba(0, 0, 0, 0.5)",
+  themeToggleBg: "#333",
+  themeToggleColor: "#f0f0f0",
 };

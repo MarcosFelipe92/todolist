@@ -1,9 +1,11 @@
+import { Door } from "phosphor-react";
 import { CreateModal } from "../../components/create-modal";
 import { DeleteModal } from "../../components/delete-modal";
 import { EditModal } from "../../components/edit-modal";
 import { TaskList } from "../../components/task-list";
 import { useModal } from "../../hooks/use.modal";
 import { useTasks } from "../../hooks/use.tasks";
+import { authService } from "../../services/auth.service";
 import { taskService } from "../../services/task.service";
 import {
   AddButton,
@@ -18,6 +20,7 @@ import {
   SearchInput,
   Spinner,
 } from "./styles";
+import { LogoutButton } from "../../components/logout-button";
 
 export function Home() {
   const {
@@ -138,6 +141,7 @@ export function Home() {
       <Card>
         <CardHeader>
           <h1>Gerenciador de Tarefas</h1>
+          <LogoutButton />
         </CardHeader>
 
         <CardBody>

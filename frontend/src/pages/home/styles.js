@@ -23,6 +23,8 @@ export const CardHeader = styled.div`
   background: ${({ theme }) => theme.primary};
   color: white;
   padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.cardBorder};
 `;
 

@@ -66,22 +66,20 @@ export const authService = {
           password,
         }),
       });
-
       if (!response.ok) {
         let errorMessage = "Erro ao cadastrar Usuário.";
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData?.message || errorMessage;
-        } catch (jsonError) {
-          errorMessage = `Erro ${response.status}: ${response.statusText}`;
-        }
-        throw new Error(errorMessage);
+        const errorData = await response.json();
+        errorMessage = errorData?.error || errorMessage;
+        return { success: false, message: errorMessage };
       }
 
       const data = await response.json();
 
-      return { success: true };
+      return { success: true, data };
     } catch (error) {
+      console.log(error);
+      console.log("aqui 3");
+
       return {
         success: false,
         message: error.message || "Erro ao conectar com o servidor.",

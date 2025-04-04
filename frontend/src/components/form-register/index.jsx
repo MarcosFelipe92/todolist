@@ -8,6 +8,7 @@ import { schemaRegister } from "./schema";
 import { Button, Container, ErrorMessage, Form } from "./styles";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { authService } from "../../services/auth.service";
 
 export default function FormRegister() {
   const {
@@ -24,9 +25,11 @@ export default function FormRegister() {
   const [errorForm, setErrorForm] = useState("");
 
   const handleFormSubmit = async ({ username, email, password }) => {
+    console.log("Aqui");
+
     setLoading(true);
     setErrorForm("");
-    const result = await register(username, email, password);
+    const result = await authService.register(username, email, password);
     setLoading(false);
 
     if (!result.success) {
