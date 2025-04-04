@@ -46,74 +46,6 @@ export function Home() {
     closeCreateModal,
   } = useModal();
 
-  const handleEditSubmit = async (data) => {
-    if (!currentTask) return;
-
-    const updatedTask = {
-      ...currentTask,
-      ...data,
-      completedAt: data.completedAt
-        ? new Date(data.completedAt).toISOString()
-        : null,
-    };
-
-    try {
-      const result = await taskService.update(updatedTask);
-      if (result.success) {
-        setTasks(
-          tasks.map((task) => (task.id === currentTask.id ? updatedTask : task))
-        );
-        setFilteredTasks(
-          filteredTasks.map((task) =>
-            task.id === currentTask.id ? updatedTask : task
-          )
-        );
-        closeEditModal();
-      }
-    } catch (error) {
-      console.error("Erro ao atualizar tarefa:", error);
-      alert("Não foi possível atualizar a tarefa.");
-    }
-  };
-
-  const handleCreateSubmit = async (data) => {
-    const createTask = {
-      ...data,
-      completedAt: data.completedAt
-        ? new Date(data.completedAt).toISOString()
-        : null,
-    };
-
-    try {
-      const result = await taskService.create(createTask);
-      if (result.success) {
-        setTasks((prevTasks) => [...prevTasks, result.data]);
-        setFilteredTasks((prevTasks) => [...prevTasks, result.data]);
-        closeCreateModal();
-      }
-    } catch (error) {
-      console.error("Erro ao criar tarefa:", error);
-      alert("Não foi possível criar a tarefa.");
-    }
-  };
-
-  const confirmDelete = async () => {
-    try {
-      const result = await taskService.delete(currentTask.id);
-      if (result.success) {
-        setTasks(tasks.filter((task) => task.id !== currentTask.id));
-        setFilteredTasks(
-          filteredTasks.filter((task) => task.id !== currentTask.id)
-        );
-      } else {
-        console.log(result.message);
-      }
-    } catch (error) {
-      console.error("Erro ao excluir tarefa:", error);
-    }
-    closeDeleteModal();
-  };
-
   const handleComplete = async (task) => {
     const updatedTask = {
       ...task,
@@ -136,6 +68,26 @@ export function Home() {
     }
   };
 
+  const updateTasksState = (updatedTask) => {
+    setTasks(
+      tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+    );
+    setFilteredTasks(
+      filteredTasks.map((task) =>
+        task.id === updatedTask.id ? updatedTask : task
+      )
+    );
+  };
+
+  const removeTaskState = (id) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+    setFilteredTasks((prev) => prev.filter((task) => task.id !== id));
+  };
+
+  const addTaskState = (newTask) => {
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setFilteredTasks((prevFilteredTasks) => [...prevFilteredTasks, newTask]);
+  };
   return (
     <PageContainer>
       <Card>
@@ -178,21 +130,21 @@ export function Home() {
         isOpen={isEditModalOpen}
         onRequestClose={closeEditModal}
         task={currentTask}
-        onSubmit={handleEditSubmit}
+        onEditSuccess={updateTasksState}
       />
 
       <DeleteModal
         isOpen={isDeleteModalOpen}
         onRequestClose={closeDeleteModal}
-        onCancel={closeDeleteModal}
-        onConfirm={confirmDelete}
+        onDeleteSuccess={removeTaskState}
+        id={currentTask?.id}
         title={currentTask?.title}
       />
 
       <CreateModal
         isOpen={isCreateModalOpen}
         onRequestClose={closeCreateModal}
-        onSubmit={handleCreateSubmit}
+        onCreateSuccess={addTaskState}
       />
     </PageContainer>
   );

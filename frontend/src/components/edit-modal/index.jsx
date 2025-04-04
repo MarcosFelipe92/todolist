@@ -13,8 +13,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "./schema";
 import { DateInput } from "../date-input";
 import { Select } from "../select";
+import { taskService } from "../../services/task.service";
 
-export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
+export function EditModal({ isOpen, onRequestClose, task, onEditSuccess }) {
   const {
     register,
     handleSubmit,
@@ -26,6 +27,27 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
     mode: "onChange",
   });
 
+  const handleEditSubmit = async (data) => {
+    const updatedTask = {
+      ...task,
+      ...data,
+      completedAt: data.completedAt
+        ? new Date(data.completedAt).toISOString()
+        : null,
+    };
+
+    try {
+      const result = await taskService.update(updatedTask);
+      if (result.success) {
+        onEditSuccess(result.data);
+        onRequestClose();
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar tarefa:", error);
+      alert("Não foi possível atualizar a tarefa.");
+    }
+  };
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -34,7 +56,7 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
     >
       <ModalDialog>
         <ModalHeader>Editar Tarefa</ModalHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleEditSubmit)}>
           <div style={{ marginBottom: "1rem" }}>
             <Input
               {...register("title")}

@@ -14,8 +14,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "./schema";
 import { DateInput } from "../date-input";
 import { useEffect } from "react";
+import { taskService } from "../../services/task.service";
 
-export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
+export function CreateModal({ isOpen, onRequestClose, onCreateSuccess }) {
   const {
     register,
     handleSubmit,
@@ -39,6 +40,26 @@ export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
     }
   }, [isOpen, reset]);
 
+  const handleCreateSubmit = async (data) => {
+    const createTask = {
+      ...data,
+      completedAt: data.completedAt
+        ? new Date(data.completedAt).toISOString()
+        : null,
+    };
+
+    try {
+      const result = await taskService.create(createTask);
+      if (result.success) {
+        onCreateSuccess(result.data);
+        onRequestClose();
+      }
+    } catch (error) {
+      console.error("Erro ao criar tarefa:", error);
+      alert("Não foi possível criar a tarefa.");
+    }
+  };
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -47,7 +68,7 @@ export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
     >
       <ModalDialog>
         <ModalHeader>Criar Tarefa</ModalHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleCreateSubmit)}>
           <div style={{ marginBottom: "1rem" }}>
             <Input
               {...register("title")}

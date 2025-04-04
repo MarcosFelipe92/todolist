@@ -4,15 +4,19 @@ import Modal from "react-modal";
 export const StyledModal = styled(Modal).attrs({
   style: {
     overlay: {
-      backgroundColor: "transparent",
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
       backdropFilter: "blur(4px)",
       zIndex: 1000,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
     content: {
       backgroundColor: "transparent",
       border: "none",
       padding: 0,
       inset: 0,
+      width: "100%",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -91,20 +95,6 @@ export const EditButton = styled.button`
   }
 `;
 
-export const ModalBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: ${({ theme }) => theme.modalBackdrop};
-  backdrop-filter: blur(4px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const ModalDialog = styled.div`
   background: ${({ theme }) => theme.cardBg};
   padding: 2rem;
@@ -113,5 +103,4 @@ export const ModalDialog = styled.div`
   max-width: 500px;
   box-shadow: 0 4px 20px ${({ theme }) => theme.shadow};
   border: 1px solid ${({ theme }) => theme.cardBorder};
-  z-index: 1001;
 `;

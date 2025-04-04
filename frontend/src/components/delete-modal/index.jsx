@@ -6,36 +6,34 @@ import {
   ModalDialog,
   ModalHeader,
   ModalText,
+  StyledModal,
 } from "./styles";
+import { taskService } from "../../services/task.service";
 
 export function DeleteModal({
   isOpen,
   onRequestClose,
-  onConfirm,
-  onCancel,
+  onDeleteSuccess,
+  id,
   title,
 }) {
+  const onDelete = async () => {
+    try {
+      const result = await taskService.delete(id);
+      if (result.success) {
+        onDeleteSuccess(id);
+      }
+    } catch (error) {
+      console.error("Erro ao excluir tarefa:", error);
+    }
+    onRequestClose();
+  };
+
   return (
-    <Modal
+    <StyledModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: "transparent",
-          backdropFilter: "blur(4px)",
-          zIndex: 1000,
-        },
-        content: {
-          backgroundColor: "transparent",
-          border: "none",
-          padding: 0,
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-      }}
     >
       <ModalDialog>
         <ModalHeader>Confirmar Exclusão</ModalHeader>
@@ -43,12 +41,14 @@ export function DeleteModal({
           Tem certeza que deseja excluir a tarefa "{title}"?
         </ModalText>
         <ModalActions>
-          <ModalCancelButton onClick={onCancel}>Cancelar</ModalCancelButton>
-          <ModalConfirmButton onClick={onConfirm}>
+          <ModalCancelButton onClick={onRequestClose}>
+            Cancelar
+          </ModalCancelButton>
+          <ModalConfirmButton onClick={onDelete}>
             Confirmar Exclusão
           </ModalConfirmButton>
         </ModalActions>
       </ModalDialog>
-    </Modal>
+    </StyledModal>
   );
 }
