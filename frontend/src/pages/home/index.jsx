@@ -46,28 +46,6 @@ export function Home() {
     closeCreateModal,
   } = useModal();
 
-  const handleComplete = async (task) => {
-    const updatedTask = {
-      ...task,
-      status: task.status != "CONCLUIDO" ? "CONCLUIDO" : "PENDENTE",
-    };
-
-    try {
-      const result = await taskService.update(updatedTask);
-      if (result.success) {
-        setTasks((prev) =>
-          prev.map((t) => (t.id === task.id ? updatedTask : t))
-        );
-        setFilteredTasks((prev) =>
-          prev.map((t) => (t.id === task.id ? updatedTask : t))
-        );
-      }
-    } catch (err) {
-      console.error("Erro:", err);
-      alert("Erro ao marcar tarefa como concluída.");
-    }
-  };
-
   const updateTasksState = (updatedTask) => {
     setTasks(
       tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
@@ -88,6 +66,7 @@ export function Home() {
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setFilteredTasks((prevFilteredTasks) => [...prevFilteredTasks, newTask]);
   };
+
   return (
     <PageContainer>
       <Card>
@@ -118,11 +97,10 @@ export function Home() {
               tasks={filteredTasks}
               onDelete={openDeleteModal}
               onEdit={openEditModal}
-              onComplete={handleComplete}
+              onTaskUpdate={updateTasksState}
             />
           )}
         </CardBody>
-
         <CardFooter>Total de tarefas: {filteredTasks.length}</CardFooter>
       </Card>
 

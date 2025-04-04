@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Badge,
-  CompleteButton,
   DeleteButton,
   DescriptionCell,
   EditButton,
@@ -14,8 +13,9 @@ import {
   TableRow,
 } from "./styles";
 import { Check, PencilSimple, Trash } from "phosphor-react";
+import { CompleteButton } from "../complete-button";
 
-export function TaskList({ tasks, onDelete, onEdit, onComplete }) {
+export function TaskList({ tasks, onDelete, onEdit, onTaskUpdate }) {
   const formatDate = (dateString) => {
     if (!dateString) return "-";
     try {
@@ -64,10 +64,7 @@ export function TaskList({ tasks, onDelete, onEdit, onComplete }) {
               <TableCell>{formatDate(task.completedAt)}</TableCell>
               <TableCell>
                 <div style={{ display: "flex" }}>
-                  <CompleteButton
-                    onClick={() => onComplete(task)}
-                    title="Marcar como concluída"
-                  >
+                  <CompleteButton task={task} onUpdateSuccess={onTaskUpdate}>
                     <Check size={16} />
                   </CompleteButton>
                   <EditButton onClick={() => onEdit(task)} title="Editar">
