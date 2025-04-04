@@ -1,27 +1,24 @@
 import styled from "styled-components";
+import Modal from "react-modal";
 
-export const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: ${({ theme }) => theme.modalOverlay};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-`;
-
-export const ModalContent = styled.div`
-  background: ${({ theme }) => theme.cardBg};
-  padding: 2rem;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 20px ${({ theme }) => theme.shadow};
-  border: 1px solid ${({ theme }) => theme.cardBorder};
-`;
+export const StyledModal = styled(Modal).attrs({
+  style: {
+    overlay: {
+      backgroundColor: "transparent",
+      backdropFilter: "blur(4px)",
+      zIndex: 1000,
+    },
+    content: {
+      backgroundColor: "transparent",
+      border: "none",
+      padding: 0,
+      inset: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+})``;
 
 export const ModalHeader = styled.h2`
   margin-top: 0;

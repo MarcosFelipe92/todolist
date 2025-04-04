@@ -97,6 +97,12 @@ export const DeleteButton = styled(ActionButton)`
   }
 `;
 
+export const CompleteButton = styled(ActionButton)`
+  &:hover {
+    color: ${({ theme }) => theme.success};
+  }
+`;
+
 export const EmptyMessage = styled.div`
   padding: 2rem;
   text-align: center;

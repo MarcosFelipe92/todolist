@@ -5,6 +5,7 @@ import {
   ModalDialog,
   ModalSaveButton,
   ModalHeader,
+  StyledModal,
 } from "./styles";
 import { Input } from "../input";
 import { Select } from "../select";
@@ -39,26 +40,10 @@ export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
   }, [isOpen, reset]);
 
   return (
-    <Modal
+    <StyledModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: "transparent",
-          backdropFilter: "blur(4px)",
-          zIndex: 1000,
-        },
-        content: {
-          backgroundColor: "transparent",
-          border: "none",
-          padding: 0,
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-      }}
     >
       <ModalDialog>
         <ModalHeader>Criar Tarefa</ModalHeader>
@@ -120,6 +105,6 @@ export function CreateModal({ isOpen, onRequestClose, onSubmit }) {
           </ModalActions>
         </form>
       </ModalDialog>
-    </Modal>
+    </StyledModal>
   );
 }

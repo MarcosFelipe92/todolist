@@ -5,6 +5,7 @@ import {
   ModalDialog,
   ModalEditButton,
   ModalHeader,
+  StyledModal,
 } from "./styles";
 import { Input } from "../input";
 import { useForm } from "react-hook-form";
@@ -26,26 +27,10 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
   });
 
   return (
-    <Modal
+    <StyledModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: "transparent",
-          backdropFilter: "blur(4px)",
-          zIndex: 1000,
-        },
-        content: {
-          backgroundColor: "transparent",
-          border: "none",
-          padding: 0,
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        },
-      }}
     >
       <ModalDialog>
         <ModalHeader>Editar Tarefa</ModalHeader>
@@ -80,8 +65,8 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
             <Select
               label="Status"
               options={[
-                { value: "PENDING", label: "PENDENTE" },
-                { value: "COMPLETED", label: "CONCLUÍDO" },
+                { value: "PENDENTE", label: "PENDENTE" },
+                { value: "CONCLUIDO", label: "CONCLUÍDO" },
               ]}
               value={watch("status")}
               onChange={(val) => setValue("status", val)}
@@ -110,6 +95,6 @@ export function EditModal({ isOpen, onRequestClose, task, onSubmit }) {
           </ModalActions>
         </form>
       </ModalDialog>
-    </Modal>
+    </StyledModal>
   );
 }

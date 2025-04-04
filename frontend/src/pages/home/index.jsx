@@ -111,6 +111,28 @@ export function Home() {
     closeDeleteModal();
   };
 
+  const handleComplete = async (task) => {
+    const updatedTask = {
+      ...task,
+      status: task.status != "CONCLUIDO" ? "CONCLUIDO" : "PENDENTE",
+    };
+
+    try {
+      const result = await taskService.update(updatedTask);
+      if (result.success) {
+        setTasks((prev) =>
+          prev.map((t) => (t.id === task.id ? updatedTask : t))
+        );
+        setFilteredTasks((prev) =>
+          prev.map((t) => (t.id === task.id ? updatedTask : t))
+        );
+      }
+    } catch (err) {
+      console.error("Erro:", err);
+      alert("Erro ao marcar tarefa como concluída.");
+    }
+  };
+
   return (
     <PageContainer>
       <Card>
@@ -140,6 +162,7 @@ export function Home() {
               tasks={filteredTasks}
               onDelete={openDeleteModal}
               onEdit={openEditModal}
+              onComplete={handleComplete}
             />
           )}
         </CardBody>
